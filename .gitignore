@@ -12,3 +12,5 @@ Homestead.json
 .idea_modules/
 
 
+/public/hot
+/public/build/
