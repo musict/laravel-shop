@@ -7,27 +7,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 
 Route::controller(AuthController::class)->group(function (){
-    Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'signIn')->name('signIn');
 
-    Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'signUp')->name('signUp');
+    Route::middleware('guest')->group(function (){
 
-    Route::get('/forgot-password', 'forgot')
-        ->middleware('guest')
-        ->name('password.request');
+        Route::get('/login', 'loginPage')->name('loginPage');
+        Route::post('/login', 'loginHandler')->name('loginHandler');
 
-    Route::post('/forgot-password', 'forgotPassword')
-        ->middleware('guest')
-        ->name('password.email');
+        Route::get('/register', 'registerPage')->name('registerPage');
+        Route::post('/register', 'registerHandler')->name('registerHandler');
+        Route::get('/forgot-password', 'forgotPasswordPage')->name('forgotPasswordPage');
 
-    Route::get('/reset-password/{token}', 'reset')
-        ->middleware('guest')
-        ->name('password.reset');
+        Route::post('/forgot-password', 'forgotPasswordHandler')->name('forgotPasswordHandler');
 
-    Route::post('/reset-password', 'resetPassword')
-        ->middleware('guest')
-        ->name('password.update');
+        Route::get('/reset-password/{token}', 'resetPasswordPage')->name('resetPasswordPage');
+
+        Route::post('/reset-password', 'resetPasswordHandler')->name('resetPasswordHandler');
+    });
+
 
     Route::delete('/logout', 'logout')->name('logout')->middleware('auth');
 });

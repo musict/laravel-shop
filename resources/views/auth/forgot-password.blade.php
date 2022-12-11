@@ -9,7 +9,7 @@
 @section('content')
     <x-forms.auth-forms
         title="{{ $title }}"
-        action="{{ route('password.email') }}"
+        action="{{ route('forgotPasswordHandler') }}"
         method="POST"
     >
         @csrf
@@ -34,7 +34,7 @@
         <x-slot:buttons>
             <div class="space-y-3 mt-5">
                 <div class="text-xxs md:text-xs">
-                    <a href="{{ route('login') }}" class="text-white hover:text-white/70 font-bold">
+                    <a href="{{ route('loginPage') }}" class="text-white hover:text-white/70 font-bold">
                         Login
                     </a>
                 </div>

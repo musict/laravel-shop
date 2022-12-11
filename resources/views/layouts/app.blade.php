@@ -11,5 +11,19 @@
 @vite(['resources/css/app.css', 'resources/sass/main.sass', 'resources/js/app.js'])
 <body class="antialiased">
 
+    @include('shared.flesh')
+
+    @include('shared.header')
+
+    <main class="py-16 lg:py-20">
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
+
+    @include('shared.footer')
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
 </body>
 </html>

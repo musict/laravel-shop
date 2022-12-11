@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -17,6 +18,8 @@ class Product extends Model
         'brand_id',
         'price',
         'thumbnail',
+        'on_home_page',
+        'sorting',
     ];
 
     public static function boot()
@@ -36,5 +39,12 @@ class Product extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function scopeHomePage(Builder $query)
+    {
+        $query->where('on_home_page', true)
+            ->orderBy('sorting')
+            ->limit(6);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Category extends Model
 {
@@ -12,6 +13,8 @@ class Category extends Model
 
     protected $fillable = [
         'title',
+        'on_home_page',
+        'sorting',
     ];
 
     public static function boot()
@@ -26,5 +29,12 @@ class Category extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function scopeHomePage(Builder $query)
+    {
+        $query->where('on_home_page', true)
+            ->orderBy('sorting')
+            ->limit(6);
     }
 }

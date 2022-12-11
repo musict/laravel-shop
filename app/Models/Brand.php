@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Brand extends Model
 {
@@ -13,7 +14,9 @@ class Brand extends Model
     protected $fillable = [
         'slug',
         'title',
-        'thumbnail'
+        'thumbnail',
+        'on_home_page',
+        'sorting',
     ];
 
     public static function boot()
@@ -28,5 +31,12 @@ class Brand extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function scopeHomePage(Builder $query)
+    {
+        $query->where('on_home_page', true)
+            ->orderBy('sorting')
+            ->limit(6);
     }
 }

@@ -9,7 +9,7 @@
 @section('content')
     <x-forms.auth-forms
         title="{{ $title }}"
-        action="{{ route('password.update')}}"
+        action="{{ route('resetPasswordHandler')}}"
         method="POST"
     >
         @csrf
