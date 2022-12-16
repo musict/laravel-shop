@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\HasThumbnail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Product extends Model
 {
     use HasFactory;
+    use HasThumbnail;
 
     protected $fillable = [
         'title',
@@ -46,5 +48,10 @@ class Product extends Model
         $query->where('on_home_page', true)
             ->orderBy('sorting')
             ->limit(6);
+    }
+
+    protected function thumbnailDir(): string
+    {
+        return 'products';
     }
 }
